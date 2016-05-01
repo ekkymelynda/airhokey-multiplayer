@@ -21,7 +21,7 @@ boolean stop=false;
 boolean gameStart= true;
  
 void setup() {
-  size(600, 900);
+  size(600, 700);
   //VEL INICIAL
   velX=7;
   velY=9;
@@ -171,14 +171,14 @@ void draw() {
  
     //PUNTUACIÓ
     textAlign(CENTER, CENTER);
-    textSize(25);
+    textSize(20);
     fill(0, 0, 255);
-    text("score="+P1SCORE, 490, height/2-470);
-    text("PLAYER 1", width/2-230, height/2-470);
+    text("score="+P1SCORE, 530, height/2-70);
+    text("PLAYER 1", width/2-230, height/2-70);
     textAlign(CENTER, CENTER);
     fill(255, 0, 0);
-    text("score="+P2SCORE, 490, height/2+470); 
-    text("PLAYER 2", width/2-230, height/2+470);
+    text("score="+P2SCORE, 530, height/2+70); 
+    text("PLAYER 2", width/2-230, height/2+70);
  
     if ( posPILOTA_X >= width/2-100 && posPILOTA_X <= width/2+100) {
       if (posPILOTA_Y>=height) {
@@ -216,3 +216,4 @@ void mouseClicked() {
   P1SCORE=0;
   P2SCORE=0;
 }
+
