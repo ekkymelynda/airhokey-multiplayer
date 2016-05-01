@@ -36,7 +36,7 @@ void setup() {
  
 void draw() {
  
-  fill(c1, c2, c3, 70);
+  fill(c1, c4, c3, 70);
   noStroke();
   rect(0, 0, width, height);
   //TERRENY DE JOC
