@@ -21,7 +21,7 @@ boolean stop=false;
 boolean gameStart= true;
  
 void setup() {
-  size(600, 1000);
+  size(600, 900);
   //VEL INICIAL
   velX=7;
   velY=9;
