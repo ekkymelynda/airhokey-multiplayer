@@ -1,3 +1,10 @@
+import ddf.minim.spi.*;
+import ddf.minim.signals.*;
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.ugens.*;
+import ddf.minim.effects.*;
+
 float velP2;
 float posP2_X;
 float posPILOTA_X=width/2;
@@ -19,10 +26,15 @@ int P1SCORE=0;
 int P2SCORE=0;
 boolean stop=false;
 boolean gameStart= true;
+
+AudioPlayer wins;
+Minim minim;
  
 void setup() {
   size(600, 700);
-  //VEL INICIAL
+  
+  //NILAI AWAL
+  
   velX=7;
   velY=9;
   velX2=9;
@@ -31,6 +43,9 @@ void setup() {
   posPILOTA_X=width/2;
   posPILOTA_Y=height/2;
   noCursor();
+  
+  minim = new Minim(this);
+  wins = minim.loadFile("SuaraTepukTangan.wav", 2048);
 }
  
  
@@ -39,7 +54,9 @@ void draw() {
   fill(c1, c4, c3, 70);
   noStroke();
   rect(0, 0, width, height);
-  //TERRENY DE JOC
+  
+  //LAPANGAN PERTANDINGAN
+  
   stroke(c4, transp);
   strokeWeight(8);
   line(0, height/2, width, height/2);
@@ -50,6 +67,7 @@ void draw() {
   //porteries
   ellipse(width/2, height, 200, 200);
   ellipse(width/2, 0, 200, 200);
+  
   if (stop==false) {
     textAlign(CENTER, CENTER);
     textSize(40);
@@ -60,13 +78,15 @@ void draw() {
     fill(255, 0, 0);
     text("P2 ARROWS", width/2, height/2+270);
   }
+  
   if (mousePressed && gameStart==true) {
     stop=true;
     gameStart=false;
   }
  
   if (stop==true) {
-    //pilota
+    
+    //bola
  
     posPILOTA_X=posPILOTA_X+velX;
     posPILOTA_Y=posPILOTA_Y+velY;
@@ -95,13 +115,14 @@ void draw() {
       posPILOTA_Y = 0;
     }
  
- 
-    //P1 (ES MOU AMB EL RATOLI)
+    //P1 (BERGERAK DENGAN MOUSE)
+    
     fill(255, c2, c3, transp);
     rect(mouseX-50, height/2+300, 100, 20);
  
  
-    //P2 (FLETXES)
+    //P2 (TANDA PANAH)
+    
     velP2=20; //velocitat de moviment del P2
  
     if (keyPressed && keyCode  == LEFT) {
@@ -110,22 +131,25 @@ void draw() {
         posP2_X=0;
       }
     }
+    
     if (keyPressed && keyCode  == RIGHT) {
       posP2_X = posP2_X+velP2;
       if (posP2_X>width) {
         posP2_X=width;
       }
     }
+    
     fill(c1, c2, 255, transp);
     rect(posP2_X-50, height/2-300, 100, -20);
+    
     //REBOTE P1
+    
     if ((posPILOTA_X > mouseX-50) && (posPILOTA_X <mouseX+50)) {
       if (posPILOTA_Y>height/2+300 && posPILOTA_Y<height/2+310) {
         velY = -(velY);
         contadorRand=contadorRand+1;
       }
     }
- 
  
     //REBOTE P2
  
@@ -136,7 +160,7 @@ void draw() {
       }
     }
  
-    //HARDCORE
+    //FINAL WAFE
  
     if (contadorRand >= 10) {
  
@@ -149,15 +173,14 @@ void draw() {
       textSize(60);
       textAlign(CENTER, CENTER);
       fill(255, 0, 0, random(0, 255));
-      text("HARDCORE", width/2, height/2);
+      text("FINAL WAVE", width/2, height/2);
+      
       if (transpPRAND > 0.90) {
         transpP=255;
       } else {
         transpP=0;
       }
     }
- 
- 
  
     if ( contadorRand >= 15) {
       contadorRand=0;
@@ -169,7 +192,8 @@ void draw() {
       c4=255;
     }
  
-    //PUNTUACIÓ
+    //RATING
+    
     textAlign(CENTER, CENTER);
     textSize(20);
     fill(0, 0, 255);
@@ -185,21 +209,25 @@ void draw() {
         P1SCORE=P1SCORE+1;
       }
     }
+    
     if ( posPILOTA_X >= width/2-100 && posPILOTA_X <= width/2+100) {
       if (posPILOTA_Y<=0) {
         P2SCORE=P2SCORE+1;
       }
     }
   }
+  
   if (P1SCORE>=10) {
     stop=false;
     if (stop==false) {
       textAlign(CENTER, CENTER);
       fill(0, 0, 255, 255);
       textSize(70);
+      wins.play();
       text("P1 WINS!", width/2, height/2);
     }
   }
+  
   if (P2SCORE>=10) {
     stop=false;
     if (stop==false) {
@@ -207,13 +235,21 @@ void draw() {
       textAlign(CENTER, CENTER);
       fill(255, 0, 0, 255);
       textSize(70);
+      wins.play();
       text("P2 WINS!", width/2, height/2);
     }
   }
 }
+
 void mouseClicked() {
   stop=true;
   P1SCORE=0;
   P2SCORE=0;
 }
 
+void stop()
+{
+  wins.close();
+  minim.stop();
+  super.stop();
+}
