@@ -24,6 +24,8 @@ float c3;
 float c4=255;
 int P1SCORE=0;
 int P2SCORE=0;
+float mida=20;
+color c=color(100);
 boolean stop=false;
 boolean gameStart= true;
 
@@ -51,7 +53,7 @@ void setup() {
  
 void draw() {
  
-  fill(c1, c4, c3, 70);
+  fill(c1, c4, c3, 30);
   noStroke();
   rect(0, 0, width, height);
   
@@ -91,9 +93,11 @@ void draw() {
     posPILOTA_X=posPILOTA_X+velX;
     posPILOTA_Y=posPILOTA_Y+velY;
  
-    fill(255, 255, 255, transpP);
+    fill(255, 255, 255, transpP); //warna putih
+    //fill(c);
     noStroke();
-    ellipse(posPILOTA_X, posPILOTA_Y, 10, 10);
+    ellipse(posPILOTA_X, posPILOTA_Y, 10, 10);  //ukuran bola
+    //ellipse(posPILOTA_X, posPILOTA_Y, mida, mida);
  
     if (posPILOTA_X >= width) {
       velX = -velX;
@@ -139,7 +143,7 @@ void draw() {
       }
     }
     
-    fill(c1, c2, 255, transp);
+    fill(c1, c2, 255, 255);
     rect(posP2_X-50, height/2-300, 100, -20);
     
     //REBOTE P1
