@@ -30,6 +30,7 @@ boolean stop=false;
 boolean gameStart= true;
 
 AudioPlayer wins;
+AudioSample bounce;
 Minim minim;
  
 void setup() {
@@ -47,7 +48,7 @@ void setup() {
   noCursor();
   
   minim = new Minim(this);
-  wins = minim.loadFile("SuaraTepukTangan.wav", 2048);
+  bounce = minim.loadSample("Ball_Bounce-Popup_Pixels-172648817.wav", 2048);
 }
  
  
@@ -88,7 +89,7 @@ void draw() {
  
   if (stop==true) {
     
-    //bola
+    //BOLA
  
     posPILOTA_X=posPILOTA_X+velX;
     posPILOTA_Y=posPILOTA_Y+velY;
@@ -102,21 +103,25 @@ void draw() {
     if (posPILOTA_X >= width) {
       velX = -velX;
       posPILOTA_X = width;
+      bounce.trigger();
     }
  
     if (posPILOTA_Y >= height) {
       velY = -velY;
       posPILOTA_Y = height;
+      bounce.trigger();
     }
  
     if (posPILOTA_X <= 0) {
       velX = -velX;
       posPILOTA_X = 0;
+      bounce.trigger();
     }
  
     if (posPILOTA_Y <= 0) {
       velY = -velY;
       posPILOTA_Y = 0;
+      bounce.trigger();
     }
  
     //P1 (BERGERAK DENGAN MOUSE)
@@ -125,7 +130,7 @@ void draw() {
     rect(mouseX-50, height/2+300, 100, 20);
  
  
-    //P2 (TANDA PANAH)
+    //P2 (BERGERAK DENGAN KEYBOARD)
     
     velP2=20; //velocitat de moviment del P2
  
@@ -152,6 +157,7 @@ void draw() {
       if (posPILOTA_Y>height/2+300 && posPILOTA_Y<height/2+310) {
         velY = -(velY);
         contadorRand=contadorRand+1;
+        bounce.trigger();
       }
     }
  
@@ -161,6 +167,7 @@ void draw() {
       if (posPILOTA_Y < height/2-300 && posPILOTA_Y > height/2-310) {
         velY=-velY;
         contadorRand=contadorRand+1;
+        bounce.trigger();
       }
     }
  
@@ -211,12 +218,16 @@ void draw() {
     if ( posPILOTA_X >= width/2-100 && posPILOTA_X <= width/2+100) {
       if (posPILOTA_Y>=height) {
         P1SCORE=P1SCORE+1;
+        textSize(60);
+        text(+P1SCORE, 570, height/2-70);
       }
     }
     
     if ( posPILOTA_X >= width/2-100 && posPILOTA_X <= width/2+100) {
       if (posPILOTA_Y<=0) {
         P2SCORE=P2SCORE+1;
+        textSize(60);
+        text(+P2SCORE, 570, height/2+70); 
       }
     }
   }
@@ -248,6 +259,7 @@ void mouseClicked() {
   stop=true;
   P1SCORE=0;
   P2SCORE=0;
+  wins = minim.loadFile("SuaraTepukTangan.wav", 2048);
 }
 
 void stop()
