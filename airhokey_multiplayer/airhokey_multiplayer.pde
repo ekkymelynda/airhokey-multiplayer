@@ -235,7 +235,6 @@ void draw() {
   if (P2SCORE>=10) {
     stop=false;
     if (stop==false) {
- 
       textAlign(CENTER, CENTER);
       fill(255, 0, 0, 255);
       textSize(70);
