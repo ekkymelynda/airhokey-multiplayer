@@ -31,6 +31,7 @@ boolean gameStart= true;
 
 AudioPlayer wins;
 AudioSample bounce;
+AudioSample buzzer;
 Minim minim;
  
 void setup() {
@@ -49,12 +50,13 @@ void setup() {
   
   minim = new Minim(this);
   bounce = minim.loadSample("Ball_Bounce-Popup_Pixels-172648817.wav", 2048);
+  buzzer = minim.loadSample("Buzzer-SoundBible.com-188422102.wav", 2048);
 }
  
  
 void draw() {
  
-  fill(c1, c4, c3, 30);
+  fill(c1, c4, c3, 20);
   noStroke();
   rect(0, 0, width, height);
   
@@ -97,7 +99,7 @@ void draw() {
     fill(255, 255, 255, transpP); //warna putih
     //fill(c);
     noStroke();
-    ellipse(posPILOTA_X, posPILOTA_Y, 10, 10);  //ukuran bola
+    ellipse(posPILOTA_X, posPILOTA_Y, 20, 20);  //ukuran bola
     //ellipse(posPILOTA_X, posPILOTA_Y, mida, mida);
  
     if (posPILOTA_X >= width) {
@@ -217,6 +219,7 @@ void draw() {
  
     if ( posPILOTA_X >= width/2-100 && posPILOTA_X <= width/2+100) {
       if (posPILOTA_Y>=height) {
+        buzzer.trigger();
         P1SCORE=P1SCORE+1;
         textSize(60);
         text(+P1SCORE, 570, height/2-70);
@@ -225,6 +228,7 @@ void draw() {
     
     if ( posPILOTA_X >= width/2-100 && posPILOTA_X <= width/2+100) {
       if (posPILOTA_Y<=0) {
+        buzzer.trigger();
         P2SCORE=P2SCORE+1;
         textSize(60);
         text(+P2SCORE, 570, height/2+70); 
