@@ -24,7 +24,6 @@ float c3;
 float c4=255;
 int P1SCORE=0;
 int P2SCORE=0;
-float mida=20;
 color c=color(100);
 boolean stop=false;
 boolean gameStart= true;
@@ -100,7 +99,6 @@ void draw() {
     //fill(c);
     noStroke();
     ellipse(posPILOTA_X, posPILOTA_Y, 20, 20);  //ukuran bola
-    //ellipse(posPILOTA_X, posPILOTA_Y, mida, mida);
  
     if (posPILOTA_X >= width) {
       velX = -velX;
