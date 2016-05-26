@@ -261,7 +261,7 @@ void mouseClicked() {
   stop=true;
   P1SCORE=0;
   P2SCORE=0;
-  wins = minim.loadFile("SuaraTepukTangan.wav", 2048);
+  wins = minim.loadFile("Applause-SoundBible.com-151138312.wav", 2048);
 }
 
 void stop()
